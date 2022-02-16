@@ -5,18 +5,30 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const generateQuestion = function (callback) {
+const answers = {
+  name: '',
+  activity: '',
+  pet: ''
+};
+
+const askQuestions = function (callback) {
   rl.question("What's your name? Nicknames are also acceptable!: ", (name) => {
-    console.log(`My name is ${name}`);
+    answers.name = name;
     rl.question("What's an activity you like doing?: ", (activity) => {
-      console.log(`and I like ${activity}!`);
+      answers.activity = activity;
       rl.question('What kind of pet do you have?: ', (pet) => {
-        console.log('and I have a dog');
+        answers.pet = pet;
         rl.close();
+        printProfile();
       })
     })
   });
 }
-generateQuestion();
+
+const printProfile = function () {
+  console.log(`My name is ${answers.name}, and I love ${answers.activity}! I also have a pet ${answers.pet}!`);
+}
+
+askQuestions();
 
 // This is meant to be an example of callback hell
